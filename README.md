@@ -1,1 +1,1 @@
-# legue-of-services-project
+# league-of-services-project
