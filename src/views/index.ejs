@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>League of Services</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="shortcut icon" href="./assets/ChatGPT Image Nov 4, 2025, 03_20_36 PM.png" type="image/x-icon">
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo-container">
+            <img class="logo" src="./assets/ChatGPT Image Nov 4, 2025, 03_20_36 PM.png" alt="Logo">
+            <h1 class="logo-texto">League of Services</h1>
+        </div>
+        <nav class="menu">
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Trabalhe Conosco</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="profissionais">
+            <div class="container">
+                <h2 class="profissionais-titulo">Nossos Profissionais</h2>
+
+                <div class="cards-container">
+
+
+                    <% if (freelancers.length === 0) { %><p>Nenhum profissional cadastrado.</p><% } %><% freelancers.forEach(freelancer => { %>
+                    <div class="card">
+                        <img class="card-imagem" src="<%= freelancer.imagem %>" alt="Foto do Profissional <%= freelancer.nome %>">
+                        <div class="card-conteudo">
+                            <h3><%= freelancer.nome %></h3>
+                            <p><%= freelancer.descricao %></p>
+                            <div class="card-botoes">
+                                <div class="botoes-icones">
+                                    <button class="btn-icon" aria-label="Gostar"><i class="fas fa-heart"></i></button>
+                                    <button class="btn-icon" aria-label="Compartilhar"><i class="fas fa-share-alt"></i></button>
+                                </div>
+                                <button class="btn-cta">Solicitar Serviços</button>
+                            </div>
+                        </div>
+                    </div>
+                    <% }); %>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+</body>
+</html>

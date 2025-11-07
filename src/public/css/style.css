@@ -1,5 +1,5 @@
 :root {
-            --azul-marinho: #1a3c3a;
+            --verde-marinho: #1a3c3a;
             --amarelo-vibrante: #FFD700;
             --cinza-claro: #F5F5F5;
             --cinza-medio: #6C7A89;
@@ -29,22 +29,56 @@
 
         /* Cabeçalho Simples */
         .header {
-            background-color: var(--azul-marinho); /* Cor principal */
-            padding: 1.5rem 0;
+            background-color: var(--verde-marinho); /* Cor principal */
+            padding: 1.2rem 0;
             text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            margin: 0px 20px;
+        }
+        .logo-container h1{
+            color: var(--cinza-claro);
+            font-size: 1.5rem;
+            margin-left: 10px;
+        }
+
         .logo{
-            width: 100px;
+            width: 60px;
             height: auto;
             border-radius: 10px;
 
         }
 
-        .header h1 {
-            color: var(--branco);
-            font-size: 1.5rem;
-            letter-spacing: 1px;
+        .menu{
+            margin-right: 20px;
         }
+        .menu ul {
+            list-style: none;
+            display: flex;
+        }
+
+        .menu li {
+            margin-right: 20px;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: var(--cinza-claro);
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .menu a:hover {
+            color: var(--amarelo-vibrante);
+        }
+
+        
 
         /* Seção dos Profissionais */
         .profissionais {
@@ -53,7 +87,7 @@
 
         .profissionais-titulo {
             text-align: center;
-            color: var(--azul-marinho); /* Cor principal */
+            color: var(--verde-marinho); /* Cor principal */
             font-size: 2.5rem;
             margin-bottom: 3rem;
         }
@@ -97,7 +131,7 @@
         }
 
         .card-conteudo h3 {
-            color: var(--azul-marinho); /* Cor principal */
+            color: var(--verde-marinho); /* Cor principal */
             font-size: 1.4rem;
             margin-bottom: 0.5rem;
         }
@@ -133,12 +167,12 @@
         }
 
         .btn-icon:hover {
-            color: var(--azul-marinho);
+            color: var(--verde-marinho);
         }
 
         .btn-cta {
             background-color: var(--amarelo-vibrante); /* Cor secundária (CTA) */
-            color: var(--azul-marinho); /* Texto com contraste */
+            color: var(--verde-marinho); /* Texto com contraste */
             border: none;
             border-radius: 5px;
             padding: 0.75rem 1rem;
