@@ -2,9 +2,10 @@
   "name": "leagueofservices",
   "version": "1.0.0",
   "description": "projeto de site freelancer de lol",
-  "main": "index.js",
+  "type": "module",
+  "main": "server.js",
   "scripts": {
-    "test": "npm test",
+    "test": "jest",
     "dev": "nodemon server.js"
   },
   "repository": {
@@ -28,5 +29,10 @@
     "jest": "^30.2.0",
     "nodemon": "^3.1.10",
     "pg": "^8.16.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.28.5",
+    "@babel/preset-env": "^7.28.5",
+    "babel-jest": "^30.2.0"
   }
 }
