@@ -1,0 +1,155 @@
+:root {
+            --azul-marinho: #1a3c3a;
+            --amarelo-vibrante: #FFD700;
+            --cinza-claro: #F5F5F5;
+            --cinza-medio: #6C7A89;
+            --turquesa: #20B2AA;
+            --branco: #FFFFFF;
+        }
+
+        /* Estilos Globais */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--cinza-claro); /* Fundo neutro */
+            color: var(--cinza-medio);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Cabeçalho Simples */
+        .header {
+            background-color: var(--azul-marinho); /* Cor principal */
+            padding: 1.5rem 0;
+            text-align: center;
+        }
+        .logo{
+            width: 100px;
+            height: auto;
+            border-radius: 10px;
+
+        }
+
+        .header h1 {
+            color: var(--branco);
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+        }
+
+        /* Seção dos Profissionais */
+        .profissionais {
+            padding: 4rem 0;
+        }
+
+        .profissionais-titulo {
+            text-align: center;
+            color: var(--azul-marinho); /* Cor principal */
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        /* Container dos Cards */
+        .cards-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        /* Estilo do Card Individual */
+        .card {
+            background-color: var(--branco);
+            border-radius: 10px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.07);
+            width: 320px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-imagem {
+            width: 100%;
+            height: 200px;
+            object-fit: cover; /* Garante que a imagem cubra o espaço */
+        }
+
+        .card-conteudo {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1; /* Faz o conteúdo ocupar o espaço disponível */
+        }
+
+        .card-conteudo h3 {
+            color: var(--azul-marinho); /* Cor principal */
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-conteudo p {
+            color: var(--cinza-medio); /* Cor neutra escura */
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            flex-grow: 1; /* Empurra os botões para baixo */
+        }
+
+        /* Botões do Card */
+        .card-botoes {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--cinza-claro);
+            padding-top: 1rem;
+        }
+
+        .botoes-icones {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn-icon {
+            background: none;
+            border: none;
+            color: var(--turquesa); /* Cor de destaque */
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .btn-icon:hover {
+            color: var(--azul-marinho);
+        }
+
+        .btn-cta {
+            background-color: var(--amarelo-vibrante); /* Cor secundária (CTA) */
+            color: var(--azul-marinho); /* Texto com contraste */
+            border: none;
+            border-radius: 5px;
+            padding: 0.75rem 1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .btn-cta:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(255, 215, 0, 0.4);
+        }
