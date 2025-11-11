@@ -18,10 +18,10 @@ Já precisou de uma confeteira maluca, advogado passarinho ou cantora emocionada
 
 | Categoria | Tecnologias |
 |------------|--------------|
-| **Frontend** |  |
-| **Backend** |  |
-| **Banco de Dados** |  |
-| **Autenticação** |  |
+| **Frontend** | Embedded Javascript |
+| **Backend** | Node.js |
+| **Banco de Dados** | Postgres |
+| **Autenticação** | *** |
 | **Infraestrutura** | Docker |
 
 ---
