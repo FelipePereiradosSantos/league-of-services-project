@@ -1,0 +1,21 @@
+# Ignora dependências locais (serão instaladas DENTRO do contêiner)
+node_modules
+
+# Ignora segredos (serão passados por variáveis de ambiente)
+.env
+.env.*
+
+# Ignora arquivos de log e debug
+npm-debug.log*
+yarn-debug.log*
+
+# Ignora arquivos do Git e do GitHub
+.git
+.github
+.gitignore
+
+# Ignora arquivos de IDE e Sistema
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
