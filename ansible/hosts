@@ -1,0 +1,7 @@
+[azure_vm]
+4.206.184.81
+
+[azure_vm:vars]
+ansible_user=adminuser
+ansible_ssh_pass="P@ssw0rdForte123!"
+ansible_ssh_common_args='-o StrictHostKeyChecking=no'

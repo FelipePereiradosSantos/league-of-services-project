@@ -1,0 +1,89 @@
+
+- name: 1. Configurar VM e Fazer Deploy da Aplicação
+  hosts: azure_vm
+  
+
+  become: true 
+
+  vars:
+    db_hostname: "psql-leagueofservices-prod.postgres.database.azure.com" # (Output do terraform)
+    db_admin_user: "psqladmin"                                            # (Output do terraform)
+    db_admin_pass: "ttt>6KKZFj0#f(0g"                                  # (Output do terraform)
+    db_name: "db_freelancers"                                             # (O nome do banco)
+    
+    # O nome da sua imagem no Docker Hub
+    docker_image: "arcanjo06/leagueofservices:1.0.0"
+
+  tasks:
+    - name: "Atualizar cache de pacotes (apt update)"
+      ansible.builtin.apt:
+        update_cache: yes
+      changed_when: false # Para não marcar como "mudança"
+
+    - name: "Instalar pacotes básicos e de pré-requisito do Docker"
+      ansible.builtin.apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - software-properties-common
+          - python3-pip # Necessário para o módulo Docker do Ansible
+        state: present
+
+    - name: "Instalar a biblioteca Python do Docker"
+      ansible.builtin.pip:
+        name: docker
+        state: present
+
+    - name: "Adicionar chave GPG oficial do Docker"
+      ansible.builtin.apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: "Adicionar repositório Docker ao APT"
+      ansible.builtin.apt_repository:
+        repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+        state: present
+
+    - name: "Instalar o Docker Engine"
+      ansible.builtin.apt:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+        state: present
+        update_cache: yes
+
+    - name: "Garantir que o serviço Docker esteja rodando"
+      ansible.builtin.service:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: "Baixar (Pull) a imagem da aplicação do Docker Hub"
+      community.docker.docker_image:
+        name: "{{ docker_image }}"
+        source: pull
+
+    - name: "Parar e remover contêiner antigo (se existir)"
+      community.docker.docker_container:
+        name: "leagueofservices-app"
+        state: absent 
+      ignore_errors: yes
+
+    - name: "Iniciar o contêiner da aplicação"
+      community.docker.docker_container:
+        name: "leagueofservices-app"
+        image: "{{ docker_image }}"
+        state: started
+        restart_policy: always
+        published_ports:
+          - "3000:3000" 
+        
+        env:
+          PORT: "3000"
+          DB_HOST: "{{ db_hostname }}"
+          DB_USER: "{{ db_admin_user }}"
+          DB_PASS: "{{ db_admin_pass }}"
+          DB_NAME: "{{ db_name }}"
+          DB_PORT: "5432"
