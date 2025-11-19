@@ -12,7 +12,7 @@
     db_name: "db_freelancers"                                             # (O nome do banco)
     
     # O nome da sua imagem no Docker Hub
-    docker_image: "arcanjo06/leagueofservices:1.0.0"
+    docker_image: "arcanjo06/leagueofservices:1.0.2"
 
   tasks:
     - name: "Atualizar cache de pacotes (apt update)"
@@ -60,26 +60,67 @@
         state: started
         enabled: yes
 
-    - name: "Baixar (Pull) a imagem da aplicação do Docker Hub"
+    - name: "Criar uma rede Docker para comunicação interna"
+      community.docker.docker_network:
+        name: league_network
+
+    # Baixar a imagem nova (1.0.2)
+    - name: "Baixar (Pull) a imagem da aplicação"
       community.docker.docker_image:
         name: "{{ docker_image }}"
         source: pull
 
-    - name: "Parar e remover contêiner antigo (se existir)"
+    # Remove o container antigo para recriar com as novas configurações de rede
+    - name: "Parar e remover container antigo do App"
       community.docker.docker_container:
         name: "leagueofservices-app"
-        state: absent 
-      ignore_errors: yes
+        state: absent
 
-    - name: "Iniciar o contêiner da aplicação"
+    - name: "Criar arquivo de configuração do Prometheus"
+      copy:
+        dest: /etc/prometheus.yml
+        content: |
+          global:
+            scrape_interval: 5s
+          scrape_configs:
+            - job_name: 'node_app'
+              static_configs:
+                - targets: ['4.206.184.81:3000']
+
+    - name: "Subir container do Prometheus"
       community.docker.docker_container:
-        name: "leagueofservices-app"
+        name: prometheus
+        image: prom/prometheus
+        state: started
+        restart_policy: always
+        networks:
+          - name: league_network
+        ports:
+          - "9090:9090"
+        volumes:
+          - /etc/prometheus.yml:/etc/prometheus/prometheus.yml
+
+    - name: "Subir container do Grafana"
+      community.docker.docker_container:
+        name: grafana
+        image: grafana/grafana
+        state: started
+        restart_policy: always
+        networks:
+          - name: league_network
+        ports:
+          - "3001:3000"
+
+    - name: "Iniciar o App na nova rede e com variáveis"
+      community.docker.docker_container:
+        name: "leagueofservices-app" # Nome essencial para o Prometheus achar
         image: "{{ docker_image }}"
         state: started
         restart_policy: always
+        networks:
+          - name: league_network # Conecta na rede do monitoramento
         published_ports:
-          - "3000:3000" 
-        
+          - "3000:3000"
         env:
           PORT: "3000"
           DB_HOST: "{{ db_hostname }}"
